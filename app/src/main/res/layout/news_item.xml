@@ -14,11 +14,12 @@
             android:id="@+id/ivThumbnail"
             android:layout_width="0dp"
             android:layout_height="@dimen/new_image_height"
+            android:contentDescription="@string/ct_news_image"
+            android:src="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
-            android:contentDescription="@string/ct_news_image" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
@@ -41,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            tools:text="orem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur scelerisque tincidunt orci, non venenatis mauris condimentum a. Integer tristique nisi id sagittis volutpat. In scelerisque enim ut massa pulvinar commodo."/>
+            tools:text="orem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur scelerisque tincidunt orci, non venenatis mauris condimentum a. Integer tristique nisi id sagittis volutpat. In scelerisque enim ut massa pulvinar commodo." />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btOpenLink"
@@ -51,32 +52,40 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:text="@string/txt_open_link"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDescription"
-            app:layout_constraintVertical_bias="0.0"
-            android:text="@string/txt_open_link" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/ivFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/ct_favorite_icon"
+            android:focusable="true"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/btOpenLink"
             app:layout_constraintEnd_toStartOf="@+id/ivShare"
             app:layout_constraintTop_toTopOf="@+id/btOpenLink"
-            app:srcCompat="@drawable/ic_favorite"
-            android:contentDescription="@string/ct_favorite_icon" />
+            app:srcCompat="@drawable/ic_favorite" />
 
         <ImageView
             android:id="@+id/ivShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/ct_share_icon"
+            android:focusable="true"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/btOpenLink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btOpenLink"
-            app:srcCompat="@drawable/ic_share"
-            android:contentDescription="@string/ct_share_icon" />
+            app:srcCompat="@drawable/ic_share" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
