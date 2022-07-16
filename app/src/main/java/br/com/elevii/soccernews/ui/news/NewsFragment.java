@@ -27,6 +27,7 @@ public class NewsFragment extends Fragment {
         newsViewModel.getNews().observe(getViewLifecycleOwner(), news -> {
             binding.rvNews.setAdapter(new NewsAdapter(news));
         });
+
         return root;
     }
 
