@@ -1,7 +1,6 @@
 package br.com.elevii.soccernews.ui.news;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import br.com.elevii.soccernews.databinding.FragmentNewsBinding;
 import br.com.elevii.soccernews.ui.adapter.NewsAdapter;
@@ -25,28 +26,40 @@ public class NewsFragment extends Fragment {
         View root = binding.getRoot();
 
         binding.rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
+        observeNews(newsViewModel);
+
+        observeStates(newsViewModel);
+
+        binding.srlNews.setOnRefreshListener(() -> {
+           newsViewModel.findNews();
+        });
+
+        return root;
+    }
+
+    private void observeStates(NewsViewModel newsViewModel) {
+        newsViewModel.getState().observe(getViewLifecycleOwner(), state -> {
+            switch (state) {
+                case DOING:
+                    binding.srlNews.setRefreshing(true);
+                    break;
+                case DONE:
+                    binding.srlNews.setRefreshing(false);
+                    break;
+                case ERROR:
+                    binding.srlNews.setRefreshing(false);
+                    Snackbar.make(binding.srlNews, "Network error", Snackbar.LENGTH_LONG).show();
+                    break;
+            }
+        });
+    }
+
+    private void observeNews(NewsViewModel newsViewModel) {
         newsViewModel.getNews().observe(getViewLifecycleOwner(), news -> {
             binding.rvNews.setAdapter(new NewsAdapter(news, updatedNews -> {
                 newsViewModel.saveNews(updatedNews);
             }));
         });
-
-        newsViewModel.getState().observe(getViewLifecycleOwner(), state -> {
-            switch (state) {
-                case DOING:
-                    //TODO: Iniciar swipeRefreshLayout
-                    break;
-                case DONE:
-                    //TODO: finalizar swipeRefreshLayout
-                    break;
-                case ERROR:
-                    //TODO: finalizar swipeRefreshLayout
-                    //TODO: mostra um erro genérico
-                    break;
-            }
-        });
-
-        return root;
     }
 
     @Override
